@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GetNewOrder.DataDB;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -24,6 +25,7 @@ namespace GetNewOrder.Logic
                 BuckCopyDb();
                 SendFile sendFilers = new SendFile();
                 int cantidadColumnas = 1;
+                int contador = 0;
                 DateTime fecha = DateTime.Now;
                 string FechaArchivo = DateTime.Now.ToString("dd-MM-yyyy");
                 string horaArchivo = DateTime.Now.ToString("HH-mm");
@@ -58,7 +60,7 @@ namespace GetNewOrder.Logic
                     catch (Exception ex)
                     {
 
-                        Console.WriteLine(ex.Message);
+                        ErrorMessage(GenerateDate(), ex.Message);
                     }
                 }
                 else
@@ -97,6 +99,12 @@ namespace GetNewOrder.Logic
                                 }
                             }
                             sw.Write(sw.NewLine); //saltamos linea
+                            contador++;
+                        }
+                        if(contador < dataTableGetNewOrder.Rows.Count)
+                        {
+                            string error = "No se envian todos los datos en el archivos";
+                            ErrorMessage(GenerateDate(), error);
                         }
                         sw.Close();
                         connection.Close();
@@ -107,7 +115,7 @@ namespace GetNewOrder.Logic
                     catch (Exception ex)
                     {
 
-                        Console.WriteLine(ex.Message);
+                        ErrorMessage(GenerateDate(), ex.Message);
                     }
 
                 }
@@ -115,29 +123,9 @@ namespace GetNewOrder.Logic
             }
 
         }
-
+        //realiza un copiado de informacion tomada desde el archivo generado por el FileUploader a la tabla de Sql
         public static void BuckCopyDb()
         {
-            //Realiza carga de archivo consulta_ODS a la base de datos para correcta ejecucion del UpdateOrders
-            //using (SqlConnection connectionSql = new SqlConnection(FileUploader.GetConnectionString()))
-            //{
-            //    using (SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionSql))
-            //    {
-            //        connectionSql.Open();
-            //        DataTable dataTablexd = ConvertCSVtoDataTable(@"\\WBOGVMAPP115\ProyectoPortalBI\VisionReportes\3105714 - CONCILIACION AMAZON\Temporal\Consulta_ODS.csv");
-            //        bulkCopy.DestinationTableName = "dbo.MM_DTMovistarP";
-            //        try
-            //        {
-            //            //Se copia las columnas de consulta a nuestra base de datos.
-            //            bulkCopy.WriteToServer(dataTablexd);
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            Console.WriteLine(ex.Message);
-            //        }
-            //        connectionSql.Close();
-            //    }
-            //}
             //Realiza cargue de informacion para ejecucion de GetNetOrder
             using (SqlConnection SqlConnection = new SqlConnection(FileUploader.GetConnectionString()))
             {
@@ -161,7 +149,7 @@ namespace GetNewOrder.Logic
                 }
             }
         }
-
+        //convierte el archivo tomado desde la clase FileUploader y la pasa a csv
         public static DataTable ConvertCSVtoDataTable(string strFilePath)
         {
             DataTable dt = new DataTable();
@@ -186,8 +174,52 @@ namespace GetNewOrder.Logic
             }
             return dt;
         }
+        //Obtiene conexion con base de datos SQL server
+        public static string GetConnectionSql()
+        {
+            Connection connection = new Connection();
+            try
+            {
+                SqlConnection connectionSql = new SqlConnection();
+                return connectionSql.ConnectionString = connection.GetConnectionMySql(); ;
+            }
+            catch (Exception ex)
+            {
 
-
+                Console.WriteLine("Error en conexion con SQL");
+                SqlConnection connectionSql = new SqlConnection();
+                connectionSql.Open();
+                string insert = $"insert into MM_Log(Fecha,Problema,Consola) " +
+                    $"values ('{GenerateDate()}','problema al conectar con base de datos SQL','FileUpload')";
+                SqlCommand comando = new SqlCommand(insert, connectionSql);
+                comando.ExecuteNonQuery();
+                connectionSql.Close();
+                Console.WriteLine("error: " + ex.Message);
+                return null;
+            }
+        }
+        public static void ErrorMessage(string archivo, string error)
+        {
+            using (SqlConnection con = new SqlConnection(GetConnectionSql()))
+            {
+                con.Open();
+                string FechaArchivo = DateTime.Now.ToString("dd-MM-yyyy");
+                string horaArchivo = DateTime.Now.ToString("HH-mm");
+                string insert = "insert into Errors(Fecha,Problema,Consola) values ('" + FechaArchivo + "_" + horaArchivo + "','Error_ " + error + "_al crear el archivo GetNewOrders" + archivo + ".csv','GetNewOrders)";
+                SqlCommand comando = new SqlCommand(insert, con);
+                comando.ExecuteNonQuery();
+                con.Close();
+            }
+            Console.WriteLine("Error Enviado a DB");
+        }
+        //Genera la fecha con la cual se va a guardar el archivo
+        public static string GenerateDate()
+        {
+            string fechaArchivo = DateTime.Now.ToString("dd-MM-yyyy");
+            string horaArchivo = DateTime.Now.ToString("HH-mm");
+            string archivo = "" + fechaArchivo + "_" + horaArchivo + "";
+            return archivo;
+        }
     }
 
 }
