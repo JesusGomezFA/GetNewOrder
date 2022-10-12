@@ -17,7 +17,7 @@ namespace GetNewOrder.Logic
         {
             SqlConnection conSql = new SqlConnection(GetConnectionString());
             conSql.Open();
-            string query = "select * from MM_PGeneral where id = '8'";
+            string query = "select * from MM_PGeneral where id = '1'";
             SqlDataAdapter adap = new SqlDataAdapter(query, conSql);
             DataTable tablaOracle = new DataTable();
             adap.Fill(tablaOracle);
@@ -31,8 +31,8 @@ namespace GetNewOrder.Logic
         public static string CreateCSV(IDataReader reader)
         {
             Console.WriteLine("Generando Archivo");
-            //string file = @"\\WBOGVMAPP115\ProyectoPortalBI\VisionReportes\3105714 - CONCILIACION AMAZON\Temporal\Consulta_ODS_GetNewOrder.csv";
-           string file = @"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivos prueba\Consulta_ODS_GetNewOrder.csv";
+            string file = @"\\WBOGVMAPP115\ProyectoPortalBI\VisionReportes\3105714 - CONCILIACION AMAZON\Temporal\Consulta_ODS_GetNewOrder.csv";
+            //string file = @"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivos prueba\Consulta_ODS_GetNewOrder.csv";
             List<string> lines = new List<string>();
             string headerLine = "";
             if (reader.Read())

@@ -38,8 +38,8 @@ namespace GetNewOrder.Logic
                     try
                     {
                         //CREAMOS ARCHIVO CSV
-                        //StreamWriter sw = new StreamWriter(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
-                        StreamWriter sw = new StreamWriter(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
+                        StreamWriter sw = new StreamWriter(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
+                        //StreamWriter sw = new StreamWriter(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
                         for (int ncolumna = 0; ncolumna < cantidadColumnas; ncolumna++)
                         {
                             sw.Write("Error");
@@ -53,8 +53,8 @@ namespace GetNewOrder.Logic
                         sw.Write(sw.NewLine); //saltamos linea
                         sw.Close();
                         connection.Close();
-                        //sendFilers.Send(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
-                        sendFilers.Send(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
+                        sendFilers.Send(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
+                        //sendFilers.Send(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
                         connection.Dispose();
                     }
                     catch (Exception ex)
@@ -69,8 +69,8 @@ namespace GetNewOrder.Logic
                     try
                     {
                         // CREAMOS ARCHIVO CSV
-                      //StreamWriter sw = new StreamWriter(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
-                       StreamWriter sw = new StreamWriter(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
+                        StreamWriter sw = new StreamWriter(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
+                        //StreamWriter sw = new StreamWriter(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv", false, Encoding.UTF8);
                         //copiar encabezados de la consulta
                         cantidadColumnas = dataTableGetNewOrder.Columns.Count;
 
@@ -108,8 +108,8 @@ namespace GetNewOrder.Logic
                         }
                         sw.Close();
                         connection.Close();
-                        //sendFilers.Send(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
-                        sendFilers.Send(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
+                        sendFilers.Send(@"E:\Documentos\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
+                        //sendFilers.Send(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivosCSV\GetNewOrders_" + FechaArchivo + "_" + horaArchivo + ".csv");
                         connection.Dispose();
                     }
                     catch (Exception ex)
@@ -132,8 +132,8 @@ namespace GetNewOrder.Logic
                 using (SqlBulkCopy bulkCopy = new SqlBulkCopy(SqlConnection))
                 {
                     SqlConnection.Open();
-                    DataTable dataTablexd = ConvertCSVtoDataTable(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivos prueba\Consulta_ODS_GetNewOrder.csv");
-                   //DataTable dataTablexd = ConvertCSVtoDataTable(@"\\WBOGVMAPP115\ProyectoPortalBI\VisionReportes\3105714 - CONCILIACION AMAZON\Temporal\Consulta_ODS_GetNewOrder.csv");
+                    //DataTable dataTablexd = ConvertCSVtoDataTable(@"C:\Users\jsgomezpe2\Desktop\Trabajo Celula Axia\OneDrive - fractalia.es\archivos prueba\Consulta_ODS_GetNewOrder.csv");
+                    DataTable dataTablexd = ConvertCSVtoDataTable(@"\\WBOGVMAPP115\ProyectoPortalBI\VisionReportes\3105714 - CONCILIACION AMAZON\Temporal\Consulta_ODS_GetNewOrder.csv");
                     bulkCopy.DestinationTableName = "dbo.MM_DTMovistarP";
                     try
                     {

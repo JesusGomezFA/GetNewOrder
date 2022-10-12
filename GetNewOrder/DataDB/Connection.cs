@@ -6,10 +6,14 @@
         {
             //el usuario debe de cambiar para el del desarrollador
             //connection to DB Oracle 
+            //string getConnectionDBOracle = "Data Source = (DESCRIPTION = (ADDRESS_LIST = (" +
+            //        "ADDRESS = (PROTOCOL = TCP)(HOST = 10.203.100.160)(PORT = 1527)))" +
+            //        "(CONNECT_DATA =(SERVICE_NAME =  odsdb)));" +
+            //        "User Id=AUTAXIA;Password=rz$NPj2q!zvg;";
             string getConnectionDBOracle = "Data Source = (DESCRIPTION = (ADDRESS_LIST = (" +
-                    "ADDRESS = (PROTOCOL = TCP)(HOST = 10.203.100.160)(PORT = 1527)))" +
-                    "(CONNECT_DATA =(SERVICE_NAME =  odsdb)));" +
-                    "User Id=AUTAXIA;Password=rz$NPj2q!zvg;";
+                    "ADDRESS = (PROTOCOL = TCP)(HOST = 10.203.100.133)(PORT = 1527)))" +
+                    "(CONNECT_DATA =(SERVICE_NAME =  crmdb)));" +
+                    "User Id=E2E_SUSPENSION_GESCODE;Password=TEmpoRMoV!!s;";
             //string getConnectionDBOracle = "Data Source = (DESCRIPTION = (ADDRESS_LIST = (" +
             //        "ADDRESS = (PROTOCOL = TCP)(HOST = 10.203.100.160)(PORT = 1527)))" +
             //        "(CONNECT_DATA =(SERVICE_NAME = odsdb)));" +

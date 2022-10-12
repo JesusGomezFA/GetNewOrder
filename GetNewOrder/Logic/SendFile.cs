@@ -20,7 +20,7 @@ namespace GetNewOrder.Logic
             using (SqlConnection conect = new SqlConnection(GetConnectionSql()))
             {
                 conect.Open();
-                string Query = "select * from MM_PGeneral where id = '7' ";
+                string Query = "select * from MM_PGeneral where id = '1' ";
                 SqlDataAdapter adap = new SqlDataAdapter(Query, conect);
                 DataTable tabla = new DataTable();
                 adap.Fill(tabla);
@@ -66,7 +66,7 @@ namespace GetNewOrder.Logic
             using (SqlConnection cn = new SqlConnection(GetConnectionSql()))
             {
                 cn.Open();
-                string Query = "select * from MM_PGeneral where id = '7' ";
+                string Query = "select * from MM_PGeneral where id = '1' ";
                 SqlDataAdapter adap = new SqlDataAdapter(Query, cn);
                 DataTable tabla = new DataTable();
                 adap.Fill(tabla);
